@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navi — Navigate Your Life</title>
+<meta name="description" content="Your personal AI navigator. Answer a few questions, get an agent that already knows its job. No setup, no tech skills. Just you, extended.">
+<meta property="og:title" content="Navi — Navigate Your Life">
+<meta property="og:description" content="Your personal AI navigator. Try the test flight free.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=General+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#F6F8F9; --bg-el:#EDF1F3; --surface:#FFFFFF;
+  --text:#1A2028; --muted:#6A7280;
+  --ocean:#4E96BD; --ocean-hov:#3D82A6; --ocean-lt:#E8F2F8; --ocean-glow:#4E96BD22;
+  --sage:#6B8F71; --sage-lt:#EDF4EF;
+  --border:#DEE2E6; --border-lt:#ECF0F2;
+  --error:#C45B4A; --warning:#C4A03A;
+  --grain:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+  --r-sm:6px; --r-md:10px; --r-lg:16px;
+}
+[data-theme="dark"] {
+  --bg:#0F1316; --bg-el:#161B20; --surface:#1C2228;
+  --text:#E4E8EC; --muted:#8A9098;
+  --ocean:#5EA8D0; --ocean-hov:#74B8DC; --ocean-lt:#162230; --ocean-glow:#5EA8D033;
+  --sage:#7EA884; --sage-lt:#1A261C;
+  --border:#262E34; --border-lt:#1E262A;
+  --error:#D47060; --warning:#D4B44E;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'General Sans',-apple-system,sans-serif;font-size:16px;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:var(--grain);background-repeat:repeat;pointer-events:none;z-index:1000}
+.tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ocean);border:1px solid var(--ocean);border-radius:100px;padding:4px 12px;display:inline-block;margin-bottom:20px}
+.tag-sage{color:var(--sage);border-color:var(--sage)}
+
+/* Theme toggle */
+.theme-toggle{position:fixed;top:16px;right:16px;z-index:1001;background:var(--surface);border:1px solid var(--border);border-radius:100px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:18px}
+.theme-toggle:hover{border-color:var(--ocean)}
+
+/* Nav */
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 48px;max-width:1400px;margin:0 auto}
+.logo{font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:400;letter-spacing:-.02em;text-decoration:none;color:var(--text)}
+.logo .dot{color:var(--ocean)}
+.nav-r{display:flex;gap:24px;align-items:center}
+.nav-r a{font-size:14px;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-r a:hover{color:var(--text)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:'General Sans',sans-serif;font-weight:600;font-size:15px;padding:16px 32px;border-radius:var(--r-md);text-decoration:none;border:none;cursor:pointer;transition:all .25s}
+.btn-ocean{background:var(--ocean);color:#fff;box-shadow:0 2px 12px var(--ocean-glow)}
+.btn-ocean:hover{background:var(--ocean-hov);box-shadow:0 4px 20px var(--ocean-glow);transform:translateY(-1px)}
+.btn-outline{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:var(--ocean)}
+.btn-sage{background:var(--sage-lt);color:var(--sage);border:1px solid transparent}
+.btn-sage:hover{border-color:var(--sage)}
+
+/* Hero */
+.hero{max-width:1400px;margin:0 auto;padding:80px 48px 120px}
+.hero h1{font-family:'Fraunces',Georgia,serif;font-size:clamp(48px,7vw,88px);font-weight:300;line-height:1.05;letter-spacing:-.03em;max-width:860px;margin-bottom:28px}
+.hero h1 em{font-style:italic;color:var(--ocean)}
+.hero .sub{font-size:19px;color:var(--muted);max-width:520px;line-height:1.7;margin-bottom:40px}
+.hero-actions{display:flex;gap:16px;align-items:center;margin-bottom:80px;flex-wrap:wrap}
+
+/* Chat preview */
+.chat{max-width:680px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.05)}
+[data-theme="dark"] .chat{box-shadow:0 8px 40px rgba(0,0,0,.3)}
+.chat-head{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--border);font-size:14px;font-weight:500}
+.dot-live{width:8px;height:8px;border-radius:50%;background:var(--sage);box-shadow:0 0 8px rgba(107,143,113,.4);animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.chat-body{padding:20px}
+.msg{margin-bottom:14px;max-width:85%}
+.msg-a{background:var(--ocean-lt);border:1px solid var(--border-lt);border-left:3px solid var(--ocean);border-radius:2px var(--r-md) var(--r-md) var(--r-md);padding:14px 18px;font-size:14px;line-height:1.65}
+.msg-u{background:var(--sage-lt);border:1px solid var(--border);border-radius:var(--r-md) 2px var(--r-md) var(--r-md);padding:14px 18px;font-size:14px;line-height:1.6;margin-left:auto}
+.msg-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--ocean);margin-bottom:6px}
+
+/* Bento */
+.bento{max-width:1400px;margin:0 auto;padding:0 48px 120px}
+.bento h2{font-family:'Fraunces',Georgia,serif;font-size:clamp(32px,4vw,52px);font-weight:300;margin-bottom:12px;letter-spacing:-.02em}
+.bento .sub{color:var(--muted);font-size:18px;max-width:520px;margin-bottom:48px;line-height:1.7}
+.bento-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:36px;transition:border-color .3s,box-shadow .3s}
+.card:hover{border-color:var(--ocean);box-shadow:0 4px 16px var(--ocean-glow)}
+.card.w{grid-column:span 2}
+.card.ocean-top{border-top:3px solid var(--ocean)}
+.card.sage-top{border-top:3px solid var(--sage)}
+.card .ico{font-size:28px;margin-bottom:20px;display:block}
+.card h3{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:400;margin-bottom:10px}
+.card p{font-size:14px;color:var(--muted);line-height:1.65}
+
+/* CTA */
+.cta{max-width:1400px;margin:0 auto;padding:96px 48px;border-top:1px solid var(--border);text-align:center}
+.cta h2{font-family:'Fraunces',Georgia,serif;font-size:clamp(28px,3.5vw,44px);font-weight:300;margin-bottom:16px}
+.cta .sub{color:var(--muted);font-size:17px;margin:0 auto 32px;max-width:480px;line-height:1.7}
+
+/* Email capture */
+.email-form{display:flex;gap:10px;justify-content:center;max-width:460px;margin:0 auto 24px;flex-wrap:wrap}
+.email-form input{flex:1;min-width:200px;font-family:'General Sans',sans-serif;font-size:15px;padding:14px 18px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--text);outline:none;transition:border-color .2s}
+.email-form input:focus{border-color:var(--ocean);box-shadow:0 0 0 3px var(--ocean-glow)}
+.email-form input::placeholder{color:var(--muted)}
+.email-note{font-size:13px;color:var(--muted)}
+
+/* Telegram CTA */
+.tg-cta{max-width:1400px;margin:0 auto;padding:64px 48px 96px;text-align:center}
+.tg-cta p{color:var(--muted);font-size:15px;margin-bottom:24px}
+
+/* Footer */
+footer{text-align:center;padding:48px;color:var(--muted);font-size:12px;font-family:'JetBrains Mono',monospace;border-top:1px solid var(--border)}
+
+@media(max-width:768px){
+  nav{padding:16px 24px}
+  .hero{padding:48px 24px 80px}
+  .hero-actions{flex-direction:column;align-items:flex-start}
+  .bento{padding:0 24px 80px}
+  .bento-grid{grid-template-columns:1fr}
+  .card.w{grid-column:span 1}
+  .cta,.tg-cta{padding:64px 24px}
+  .email-form{flex-direction:column}
+  .email-form input{min-width:auto}
+}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'':'dark'" aria-label="Toggle dark mode">
+  <span id="theme-icon">&#9790;</span>
+</button>
+
+<nav>
+  <a href="/" class="logo">navi<span class="dot">.</span></a>
+  <div class="nav-r">
+    <a href="#how">How it works</a>
+    <a href="#try" class="btn btn-ocean" style="padding:10px 20px;font-size:13px;box-shadow:none">Try it free</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="tag">Your AI Navigator</div>
+  <h1>The intelligence<br>you <em>extend into</em></h1>
+  <p class="sub">Navi learns who you are. It checks in every morning. It catches what you drop. Not a chatbot. Not a tool. An extension of your capacity.</p>
+  <div class="hero-actions">
+    <a href="#try" class="btn btn-ocean">Start test flight &#8594;</a>
+    <a href="#how" class="btn btn-outline">How it works</a>
+  </div>
+
+  <div class="chat">
+    <div class="chat-head">
+      <div class="dot-live"></div>
+      Navi is online
+    </div>
+    <div class="chat-body">
+      <div class="msg msg-a">
+        <div class="msg-lbl">Navi</div>
+        Good morning. Three things for your Thursday: the gear review you've been putting off is due Friday, your collaborator hasn't responded since Tuesday (want me to follow up?), and I blocked 45 minutes after lunch for that song arrangement idea.
+      </div>
+      <div class="msg msg-u">
+        Yeah, follow up with them. And add a reminder for strings session Saturday.
+      </div>
+      <div class="msg msg-a">
+        <div class="msg-lbl">Navi</div>
+        Done and done. I'll draft something warm but direct for the follow-up. Saturday strings session at what time?
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bento" id="how">
+  <div class="tag tag-sage">What Navi does</div>
+  <h2>Not another assistant.<br>An extension of you.</h2>
+  <p class="sub">Navi doesn't wait to be asked. It learns your rhythm, anticipates your needs, and handles the things that keep slipping through the cracks.</p>
+  <div class="bento-grid">
+    <div class="card w ocean-top">
+      <span class="ico">&#9788;</span>
+      <h3>Morning intelligence</h3>
+      <p>Every day starts with a personalized briefing built from your conversations, your goals, and what Navi noticed you keep forgetting. Not a to-do list. A compass for your day.</p>
+    </div>
+    <div class="card sage-top">
+      <span class="ico">&#10070;</span>
+      <h3>Catches what you drop</h3>
+      <p>That thing you said you'd do last week? Navi remembers. It nudges at the right moment and handles the follow-through.</p>
+    </div>
+    <div class="card ocean-top">
+      <span class="ico">&#9889;</span>
+      <h3>Gets sharper over time</h3>
+      <p>Every conversation makes Navi better at being your navigator. It learns your patterns, your language, your rhythm.</p>
+    </div>
+    <div class="card sage-top">
+      <span class="ico">&#9731;</span>
+      <h3>Your data, your terms</h3>
+      <p>Navi builds a profile of what matters to you. You own it. You control it. It never leaves your hands.</p>
+    </div>
+    <div class="card w ocean-top">
+      <span class="ico">&#10024;</span>
+      <h3>Navigate your whole life</h3>
+      <p>Creative projects. Fitness goals. Family logistics. Business operations. Navi adapts to who you are, not the other way around. One companion, every dimension of your life.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="try">
+  <div class="tag">Try it now</div>
+  <h2>Test flight Navi for 48 hours</h2>
+  <p class="sub">Meet your AI navigator on Telegram. No signup, no credit card. Just a conversation that might change how you think about your day.</p>
+  <a href="https://t.me/NaviTestFlightBot" class="btn btn-ocean" style="font-size:17px;padding:18px 36px">Open in Telegram &#8594;</a>
+</section>
+
+<section class="tg-cta">
+  <p>Not on Telegram? Drop your email and we'll let you know when the app launches.</p>
+  <form class="email-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <input type="email" name="email" placeholder="your@email.com" required>
+    <button type="submit" class="btn btn-sage" style="padding:14px 24px">Notify me</button>
+  </form>
+  <p class="email-note">No spam. Just a launch notification when Navi is ready.</p>
+</section>
+
+<footer>
+  navi<span style="color:var(--ocean)">.</span> &middot; navigate your life &middot; 2026
+</footer>
+
+<script>
+// Theme persistence
+const saved = localStorage.getItem('navi-theme');
+if (saved) document.documentElement.dataset.theme = saved;
+else if (window.matchMedia('(prefers-color-scheme:dark)').matches) document.documentElement.dataset.theme = 'dark';
+
+document.querySelector('.theme-toggle').addEventListener('click', () => {
+  const t = document.documentElement.dataset.theme === 'dark' ? '' : 'dark';
+  document.documentElement.dataset.theme = t;
+  localStorage.setItem('navi-theme', t);
+  document.getElementById('theme-icon').innerHTML = t === 'dark' ? '&#9728;' : '&#9790;';
+});
+// Init icon
+if (document.documentElement.dataset.theme === 'dark') document.getElementById('theme-icon').innerHTML = '&#9728;';
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
