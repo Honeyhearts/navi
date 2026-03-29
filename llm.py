@@ -1,6 +1,7 @@
 import os
 import logging
 from openai import OpenAI
+import context_library
 
 logger = logging.getLogger(__name__)
 
@@ -47,6 +48,11 @@ def call_llm(messages: list, model: str = None, max_tokens: int = 800) -> str:
 
 def build_chat_messages(user: dict, recent_messages: list) -> list:
     system = SYSTEM_PROMPT
+
+    persona_context = context_library.sample_context(n=2)
+    if persona_context:
+        system += f"\n\n{persona_context}"
+
     if user.get("name"):
         system += f"\n\nUser's name: {user['name']}"
     if user.get("life_context"):
