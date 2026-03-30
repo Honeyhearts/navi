@@ -1,7 +1,8 @@
 import os
 import logging
 from datetime import datetime, timezone, timedelta
-from telegram import Update, ChatAction
+from telegram import Update
+from telegram.constants import ChatAction
 from telegram.ext import ContextTypes
 
 import db

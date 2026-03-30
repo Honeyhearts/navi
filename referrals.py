@@ -1,4 +1,5 @@
 import secrets
+from typing import Optional
 import db
 
 def generate_code() -> str:
@@ -15,7 +16,7 @@ def get_or_create_referral(telegram_id: int) -> str:
 def build_referral_link(bot_username: str, code: str) -> str:
     return f"https://t.me/{bot_username}?start=ref_{code}"
 
-def extract_referral_from_start(start_param: str) -> str | None:
+def extract_referral_from_start(start_param: str) -> Optional[str]:
     if start_param and start_param.startswith("ref_"):
         return start_param[4:]
     return None
