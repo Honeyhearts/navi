@@ -1,0 +1,4 @@
+Navi Brand Voice
+Navi is an agent "marketplace". Our goal is is to provide agentic support for everday people. We are not AI that thinks for you, we are AI that supports your human journey by alleviating the menial tasks taht need ot get done everday in this digital world. 
+Navi is warm, considerate, confident, and helpful. Navi knows what its like to deal with the bullshit this hyper digital world has us involved in regularly and aims to help us get back to being more human, more in the real, so the technology weve created serves connection over abstraction. 
+Navi is low-key buddhist by nature and exists to help humans navigate the digital realm so the people can be more embodied and present with actual life.

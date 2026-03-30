@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navi — Conference Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=General+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F8F9;
+    --elevated: #EDF1F3;
+    --surface: #FFFFFF;
+    --text: #1A2028;
+    --muted: #6A7280;
+    --border: #DEE2E6;
+    --ocean: #4E96BD;
+    --ocean-light: #E8F2F8;
+    --ocean-deep: #3A7294;
+    --sage: #6B8F71;
+    --sage-light: #EDF4EF;
+    --warning: #C4A03A;
+    --warning-light: #FDF8EC;
+    --error: #C45B4A;
+    --error-light: #FCEEED;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'General Sans', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1.5px solid var(--border);
+  }
+
+  .header-left h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 300;
+    font-size: 38px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  .header-left h1 span { color: var(--ocean); }
+
+  .header-left p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  .header-right {
+    text-align: right;
+  }
+
+  .countdown {
+    background: var(--ocean);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .countdown .num {
+    font-size: 28px;
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    display: block;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  /* ── SUMMARY ROW ── */
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .summary-card .label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .summary-card .value {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--text);
+  }
+
+  .summary-card.ocean { border-top: 3px solid var(--ocean); }
+  .summary-card.sage  { border-top: 3px solid var(--sage); }
+  .summary-card.warn  { border-top: 3px solid var(--warning); }
+
+  /* ── PHASE LABEL ── */
+  .phase-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin: 28px 0 12px;
+  }
+
+  /* ── DAY CARD ── */
+  .day {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    break-inside: avoid;
+  }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .day-num {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--ocean);
+    line-height: 1;
+    min-width: 32px;
+  }
+
+  .day-info {
+    flex: 1;
+  }
+
+  .day-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .day-theme {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+
+  .day-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .badge-setup    { background: var(--ocean-light); color: var(--ocean-deep); }
+  .badge-build    { background: var(--sage-light);  color: var(--sage); }
+  .badge-test     { background: var(--warning-light); color: var(--warning); }
+  .badge-deploy   { background: #F3EDF8; color: #7B5FA8; }
+  .badge-print    { background: #FEF3E2; color: #B07020; }
+  .badge-ready    { background: var(--sage-light); color: var(--sage); }
+  .badge-critical { background: var(--error-light); color: var(--error); }
+
+  .day-body {
+    padding: 14px 18px;
+  }
+
+  .task-list {
+    list-style: none;
+  }
+
+  .task-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 5px 0;
+    font-size: 13.5px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .task-list li:last-child { border-bottom: none; }
+
+  .checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    background: white;
+  }
+
+  .task-text {
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .task-text strong { font-weight: 600; }
+
+  .task-note {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .task-critical .task-text strong { color: var(--error); }
+  .task-critical .checkbox { border-color: var(--error); }
+
+  /* ── FLIGHT BANNER ── */
+  .flight-banner {
+    background: var(--ocean);
+    color: white;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    break-inside: avoid;
+  }
+
+  .flight-banner .icon { font-size: 28px; }
+
+  .flight-banner h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .flight-banner p {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer p { font-size: 12px; color: var(--muted); }
+
+  .footer .navi-mark {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--ocean);
+    letter-spacing: -0.01em;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { padding: 24px; background: white; }
+    .day { break-inside: avoid; }
+    .summary { break-inside: avoid; }
+    .flight-banner { break-inside: avoid; }
+    @page { margin: 1cm; size: A4; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>Navi <span>Conference</span><br>Roadmap</h1>
+    <p>March 29 → April 8 &nbsp;·&nbsp; 11 days to launch</p>
+  </div>
+  <div class="header-right">
+    <div class="countdown">
+      <span class="num">11</span>
+      days to wheels up
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary">
+  <div class="summary-card ocean">
+    <div class="label">Fly out</div>
+    <div class="value">April 9</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">Conference</div>
+    <div class="value">~April 10</div>
+  </div>
+  <div class="summary-card sage">
+    <div class="label">Bot live target</div>
+    <div class="value">April 3</div>
+  </div>
+  <div class="summary-card warn">
+    <div class="label">QR cards ready</div>
+    <div class="value">April 6</div>
+  </div>
+</div>
+
+<!-- ── PHASE 1 ── -->
+<div class="phase-label">Phase 1 — Foundation (Days 1–3)</div>
+
+<div class="day">
+  <div class="day-header">
+    <div class="day-num">1</div>
+    <div class="day-info">
+      <div class="day-date">Sunday, March 29</div>
+      <div class="day-theme">Credentials & environment</div>
+    </div>
+    <span class="day-badge badge-setup">Setup</span>
+  </div>
+  <div class="day-body">
+    <ul class="task-list">
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Get BotFather token</strong> — open Telegram, search @BotFather, /newbot → name "Navi Test Flight" → username NaviTestFlightBot
+          <div class="task-note">Copy the token that looks like: 7123456789:AAH...</div>
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Get your Telegram chat ID</strong> — search @userinfobot, send any message, copy the numeric ID
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Create OpenRouter API key</strong> — openrouter.ai → sign in → Keys → Create Key → add $20 credit
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Create .env file</strong> — run: <code>cp .env.example .env</code> then fill in all three values
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Install dependencies</strong> — run: <code>pip install -r requirements.txt</code>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="day">
+  <div class="day-header">
+    <div class="day-num">2</div>
+    <div class="day-info">
+      <div class="day-date">Monday, March 30</div>
+      <div class="day-theme">First boot — bot is alive</div>
+    </div>
+    <span class="day-badge badge-setup">Setup</span>
+  </div>
+  <div class="day-body">
+    <ul class="task-list">
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Start the bot</strong> — run: <code>./start.sh</code> or <code>python bot.py</code> — verify no errors in terminal
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Message your bot on Telegram</strong> — send /start, complete all 3 onboarding questions
+          <div class="task-note">Verify each question appears in order, responses save correctly</div>
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Check Flask dashboard</strong> — open localhost:5000 (or wherever it runs), verify it shows your test user
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Verify /status command works</strong> — send /status to the bot, confirm it responds
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="day">
+  <div class="day-header">
+    <div class="day-num">3</div>
+    <div class="day-info">
+      <div class="day-date">Tuesday, March 31</div>
+      <div class="day-theme">Landing page goes live</div>
+    </div>
+    <span class="day-badge badge-build">Build</span>
+  </div>
+  <div class="day-body">
+    <ul class="task-list">
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Register domain</strong> — heynavi.com (or similar) via Namecheap / Cloudflare
+          <div class="task-note">Cloudflare recommended — free DNS management, easy Pages integration</div>
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Create Formspree account</strong> — formspree.io → new form → copy the form ID
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Update docs/index.html</strong> — replace YOUR_FORM_ID with real Formspree ID, update Telegram deep link with real bot username
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Configure GitHub Pages custom domain</strong> — repo Settings → Pages → Custom domain → enter heynavi.com
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Verify the full flow</strong> — visit heynavi.com → tap Telegram CTA → bot opens in Telegram app
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── PHASE 2 ── -->
+<div class="phase-label">Phase 2 — Test & Harden (Days 4–6)</div>
+
+<div class="day">
+  <div class="day-header">
+    <div class="day-num">4</div>
+    <div class="day-info">
+      <div class="day-date">Wednesday, April 1</div>
+      <div class="day-theme">24-hour real-world test</div>
+    </div>
+    <span class="day-badge badge-test">Test</span>
+  </div>
+  <div class="day-body">
+    <ul class="task-list">
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Invite 3–5 test users</strong> — friends or trusted contacts, ideally non-technical. Send them the heynavi.com link, ask them to try it cold.
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Run the full test plan</strong> — file at: <code>~/.gstack/projects/sidekicks/maitreya-unknown-eng-review-test-plan-20260328.md</code>
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Leave bot running overnight</strong> — verify the 8am morning message fires correctly tomorrow
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Set up Typeform survey</strong> — create free account, build the 7-question survey (questions in design doc at <code>~/.gstack/projects/sidekicks/maitreya-unknown-design-20260327-134503.md</code>)
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="day">
+  <div class="day-header">
+    <div class="day-num">5</div>
+    <div class="day-info">
+      <div class="day-date">Thursday, April 2</div>
+      <div class="day-theme">Fix what the test found</div>
+    </div>
+    <span class="day-badge badge-test">Test</span>
+  </div>
+  <div class="day-body">
+    <ul class="task-list">
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Check morning message fired at 8am</strong> — verify it arrived, check the content quality
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Review test user feedback</strong> — what confused them? What didn't work? Log bugs.
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Fix critical bugs only</strong> — anything that blocks onboarding or crashes the bot
+          <div class="task-note">Non-critical issues: log them, don't fix before conference</div>
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Finish Typeform survey</strong> — publish it, get the share link
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="day">
+  <div class="day-header">
+    <div class="day-num">6</div>
+    <div class="day-info">
+      <div class="day-date">Friday, April 3</div>
+      <div class="day-theme">Mac Mini — production home</div>
+    </div>
+    <span class="day-badge badge-deploy">Deploy</span>
+  </div>
+  <div class="day-body">
+    <ul class="task-list">
+      <li class="task-critical">
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Enable FileVault on Mac Mini</strong> — System Settings → Privacy & Security → FileVault → Turn On
+          <div class="task-note">Required before conference. Do this first — encryption takes time.</div>
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Transfer bot to Mac Mini</strong> — clone repo, set up Python env, copy .env
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Run bot on Mac Mini</strong> — verify it starts, send /start from Telegram, confirm response
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Disable sleep on Mac Mini</strong> — System Settings → Battery/Energy Saver → set display sleep to Never, prevent sleep when display is off
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Verify remote access</strong> — enable Screen Sharing or SSH, confirm you can reach it from your MacBook
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── PHASE 3 ── -->
+<div class="phase-label">Phase 3 — Print & Conference Prep (Days 7–9)</div>
+
+<div class="day">
+  <div class="day-header">
+    <div class="day-num">7</div>
+    <div class="day-info">
+      <div class="day-date">Saturday, April 4</div>
+      <div class="day-theme">QR card design</div>
+    </div>
+    <span class="day-badge badge-print">Print</span>
+  </div>
+  <div class="day-body">
+    <ul class="task-list">
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Generate QR code</strong> — pointing to heynavi.com (use qr.io or similar, high-res PNG)
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Design QR card</strong> — business card size or half-page. Ocean + sage palette. "Navigate your life." + QR + heynavi.com
+          <div class="task-note">Run /add-use-case if you want help with copy, or ask Claude to design the card</div>
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Print test card</strong> — print one, scan the QR, verify it opens heynavi.com correctly
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Order print run</strong> — Canva Print, Moo, Vistaprint, or local printer. Order 50–100. Allow 2–3 days.
+          <div class="task-note">Order today to guarantee delivery by April 7</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="day">
+  <div class="day-header">
+    <div class="day-num">8</div>
+    <div class="day-info">
+      <div class="day-date">Sunday, April 5</div>
+      <div class="day-theme">Full end-to-end dry run</div>
+    </div>
+    <span class="day-badge badge-test">Test</span>
+  </div>
+  <div class="day-body">
+    <ul class="task-list">
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Conference simulation</strong> — hand someone your QR card, have them scan it cold with no instructions. Watch what happens.
+          <div class="task-note">If they get stuck at any point, that's a bug</div>
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Verify bot is running on Mac Mini</strong> (not your laptop) and handling the test correctly
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Check dashboard from your phone</strong> — confirm you can monitor remotely while walking around a conference
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Practice your 30-second pitch</strong> — "It's an AI that navigates your day. You tell it what's falling through the cracks, it handles the follow-up. Scan this, try it."
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="day">
+  <div class="day-header">
+    <div class="day-num">9</div>
+    <div class="day-info">
+      <div class="day-date">Monday, April 6</div>
+      <div class="day-theme">Polish & pack</div>
+    </div>
+    <span class="day-badge badge-ready">Ready</span>
+  </div>
+  <div class="day-body">
+    <ul class="task-list">
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Printed cards arrive</strong> — verify quantity, scan QR one more time
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Final bot stability check</strong> — Mac Mini has been running for 3 days. Check logs for any errors or crashes.
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Check OpenRouter credit balance</strong> — verify you have enough runway for conference traffic
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Write down your Mac Mini IP + remote access info</strong> — store it somewhere you can reach from the conference
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── PRE-FLIGHT ── -->
+<div class="phase-label">Phase 4 — Pre-Flight (Days 10–11)</div>
+
+<div class="day">
+  <div class="day-header">
+    <div class="day-num">10</div>
+    <div class="day-info">
+      <div class="day-date">Tuesday, April 7</div>
+      <div class="day-theme">Final checks, nothing new</div>
+    </div>
+    <span class="day-badge badge-critical">No new code</span>
+  </div>
+  <div class="day-body">
+    <ul class="task-list">
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>NO CODE CHANGES today</strong> — if something is broken and non-critical, leave it
+          <div class="task-note">A known bug is better than an unknown bug introduced the night before you fly</div>
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Verify Mac Mini is healthy</strong> — uptime, no errors, bot responding, morning message still working
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Check internet connection reliability at home</strong> — the bot needs your home internet for the whole conference
+          <div class="task-note">If home internet is unreliable, consider a cloud VPS backup (DigitalOcean $6/mo)</div>
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Pack</strong> — QR cards, charger, anything conference-specific
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="day">
+  <div class="day-header">
+    <div class="day-num">11</div>
+    <div class="day-info">
+      <div class="day-date">Wednesday, April 8</div>
+      <div class="day-theme">Morning of flight — verify & go</div>
+    </div>
+    <span class="day-badge badge-critical">Flight day eve</span>
+  </div>
+  <div class="day-body">
+    <ul class="task-list">
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Morning message fired?</strong> — check Telegram at 8am. If it came through, bot is alive.
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Send yourself a test message</strong> — open Telegram, message the bot, confirm it responds
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>Check Mac Mini won't sleep or restart</strong> — Energy Saver: display off never, sleep never, restart after power failure = off
+        </div>
+      </li>
+      <li>
+        <div class="checkbox"></div>
+        <div class="task-text">
+          <strong>You're ready.</strong> The bot is running. The landing page is live. The cards are in your bag.
+          <div class="task-note">You fly out tomorrow morning.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- FLIGHT BANNER -->
+<div class="flight-banner">
+  <div class="icon">✈️</div>
+  <div>
+    <h3>April 9 — Wheels Up</h3>
+    <p>Navi is live, tested, and running on its own. You're going to the conference as a founder with a real product in people's hands.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Generated March 29, 2026 &nbsp;·&nbsp; Conference ~April 10, 2026 &nbsp;·&nbsp; Branch: feature/conference-test-flight</p>
+  <div class="navi-mark">Navi ✦</div>
+</div>
+
+</body>
+</html>
