@@ -18,5 +18,6 @@ def build_referral_link(bot_username: str, code: str) -> str:
 
 def extract_referral_from_start(start_param: str) -> Optional[str]:
     if start_param and start_param.startswith("ref_"):
-        return start_param[4:]
+        code = start_param[4:]
+        return code or None
     return None

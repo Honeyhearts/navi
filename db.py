@@ -33,6 +33,8 @@ def create_user(telegram_id: int, referral_code: str, referred_by: str = None):
     conn.close()
 
 def update_user(telegram_id: int, **kwargs):
+    if not kwargs:
+        return
     conn = get_conn()
     sets = ", ".join(f"{k} = ?" for k in kwargs)
     vals = list(kwargs.values()) + [telegram_id]

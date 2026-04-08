@@ -7,7 +7,7 @@ import db
 
 logger = logging.getLogger(__name__)
 
-PRESIGNUP_URL = "https://heynavi.com"  # Update with actual domain
+PRESIGNUP_URL = "https://naviagents.io"
 
 
 async def send_followup_messages(bot: Bot):

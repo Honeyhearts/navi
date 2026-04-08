@@ -3,6 +3,7 @@ import re
 from pathlib import Path
 
 LIBRARY_DIR = Path(__file__).parent / "library"
+_CACHE: list[dict] | None = None
 
 
 def _parse_frontmatter(text: str) -> dict:
@@ -19,15 +20,20 @@ def _parse_frontmatter(text: str) -> dict:
 
 
 def load_all() -> list[dict]:
+    global _CACHE
+    if _CACHE is not None:
+        return _CACHE
     if not LIBRARY_DIR.exists():
-        return []
+        _CACHE = []
+        return _CACHE
     entries = []
     for f in sorted(LIBRARY_DIR.glob("*.md")):
         text = f.read_text()
         meta = _parse_frontmatter(text)
         if meta:
             entries.append(meta)
-    return entries
+    _CACHE = entries
+    return _CACHE
 
 
 def sample_context(n: int = 2) -> str:

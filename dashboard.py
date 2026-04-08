@@ -24,4 +24,4 @@ def index():
 
 def run_dashboard():
     logger.info(f"Dashboard running on port {DASHBOARD_PORT}")
-    app.run(host="0.0.0.0", port=DASHBOARD_PORT, debug=False)
+    app.run(host="127.0.0.1", port=DASHBOARD_PORT, debug=False)
